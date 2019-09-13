@@ -94,6 +94,14 @@ You should be able to active Dynmap mod, or others, by setting "YES" to linked e
 
 /!\ Dynmap mod need another open port.
 
+### Changing default port
+
+You should be able to changing default port of your server by changin linked environment variable, as:
+
+`docker run -it -p 25575:25575 -p 8133:8133 -e EULA=true -e SERVER_PORT=25575 -e DYNMAP_PORT=8133 -e WITH_DYNMAP="YES" --name minecraf_server mdestombes/minecraft_ftbrev_server`
+
+/!\ Dynmap mod need another open port.
+
 ### Environment Files
 
 Because of the potentially large number of environment variables that you could pass in, you might want to consider using an `environment variable file`. Example:
