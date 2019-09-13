@@ -2,13 +2,15 @@
 
 __*Take care, `Last` version is often in dev. Use stable version with TAG*__
 
-Docker build for managing a Minecraft Fead the Beast Revelation server with multiple modul include as:
+Docker build for managing a Minecraft Fead the Beast Revelation server with optionnal multiple modul include as:
 - Dynmap-3.0-beta-3-forge-1.12.2
-- DynmapBlockScan-3.0-beta-1-forge-1.12.2
+  + DynmapBlockScan-3.0-beta-1-forge-1.12.2
 - buildcraft-all-7.99.21
 - energyconverters_1.12.2-1.2.1.11.jar
 
-To connect to this server, you need to have activate thoses moduls to your client.
+To activate mods, you need to set "YES" for linked environment variable.
+/!\ DynmapBlockScan need Dynmap to process. Without server crash.
+By default, there are not active.
 
 This image is borrowed from JonasBonno/docker-ftb-revelation functionnalities.
 Thanks for this good base of Dockerfile and existing structure.
@@ -75,7 +77,7 @@ A full list of `server.properties` settings and their corresponding environment 
 
 To start the server and accept the EULA in one fell swoop, just pass the `EULA=true` environment variable to Docker when running the container.
 
-`docker run -it -p 25565:25565 -p 8123:8123 -e EULA=true --name minecraf_server mdestombes/minecraft_ftbrev_server`
+`docker run -it -p 25565:25565 -e EULA=true --name minecraf_server mdestombes/minecraft_ftbrev_server`
 
 ### Configuration
 
@@ -83,6 +85,14 @@ You should be able to pass configuration options as environment variables like s
 `docker run -it -p 25565:25565 -p 8123:8123 -e EULA=true -e DIFFICULTY=2 -e MOTD="A specific welcome message" -e SPAWN_ANIMALS=false --name minecraf_server mdestombes/minecraft_ftbrev_server`
 
 This container will attempt to generate a `server.properties` file if one does not already exist. If you would like to use the configuration tool, be sure that you are not providing a configuration file or that you also set `FORCE_CONFIG=true` in the environment variables.
+
+### Activation of Dynmap
+
+You should be able to active Dynmap mod, or others, by setting "YES" to linked enviroment variable, as:
+
+`docker run -it -p 25565:25565 -p 8123:8123 -e EULA=true -e WITH_DYNMAP="YES" --name minecraf_server mdestombes/minecraft_ftbrev_server`
+
+/!\ Dynmap mod need another open port.
 
 ### Environment Files
 
@@ -121,6 +131,10 @@ You can bring your own existing data + configuration and mount it to the `/data`
 ## Expose
 + Port: __SERVER_PORT__: Minecraft steam port (default: 25565)
 + Port: __DYNMAP_PORT__: Main server port (default: 8123)
++ Port: __WITH_DYNMAP__: Mod Dynmap activation managment (default: "NO")
++ Port: __WITH_BUILDCRAFT__: Mod Buildcraft activation managment (default: "NO")
++ Port: __WITH_BLOCKSCAN__: Mod Dynmap Blockscan activation managment (default: "NO")
++ Port: __WITH_ENERGY__: Mod Energy Converter activation managment (default: "NO")
 
 ---
 
@@ -130,6 +144,8 @@ You can bring your own existing data + configuration and mount it to the `/data`
 
 ## Changelog
 
-| Tag      | Notes               |
-|----------|---------------------|
-| `1.0`    | Initialization      |
+| Tag      | Notes                   |
+|----------|-------------------------|
+| `1.0`    | Initialization          |
+|----------|-------------------------|
+| `1.1`    | Mods are optionnal      |

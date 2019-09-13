@@ -17,6 +17,10 @@ RUN apt-get update && \
 ENV SERVER_PORT=25565
 ENV DYNMAP_PORT=8123
 ENV MOTD="Welcome to Minecraft"
+ENV WITH_DYNMAP="NO"
+ENV WITH_BUILDCRAFT="NO"
+ENV WITH_BLOCKSCAN="NO"
+ENV WITH_ENERGY="NO"
 
 # Share the data directory
 VOLUME  /minecraft/data

@@ -33,10 +33,55 @@ function stop {
   exit
 }
 
+# Init mods
+function init_mods {
+
+  if [[ ! -f /minecraft/data/mods_initialized ]]; then
+    echo -e "\n*************************************************"
+    echo "* Mods management..."
+    echo "*************************************************"
+
+    if [[ "${WITH_DYNMAP}" == "YES" ]]; then
+      echo "Add DynMap mod..."
+      # Copy plugins
+      cp -f /minecraft/data/plugins/Dynmap-* /minecraft/data/mods
+    else
+      echo "Avoiding DynMap mod!"
+    fi
+
+    if [[ "${WITH_BUILDCRAFT}" == "YES" ]]; then
+      echo "Add Buildcraft mod..."
+      # Copy plugins
+      cp -f /minecraft/data/plugins/buildcraft-all-* /minecraft/data/mods
+    else
+      echo "Avoiding Buildcraft mod!"
+    fi
+
+    if [[ "${WITH_BLOCKSCAN}" == "YES" ]]; then
+      echo "Add DynMap Blockscan mod..."
+      # Copy plugins
+      cp -f /minecraft/data/plugins/DynmapBlockScan-* /minecraft/data/mods
+    else
+      echo "Avoiding DynMap Blockscan mod!"
+    fi
+
+    if [[ "${WITH_ENERGY}" == "YES" ]]; then
+      echo "Add Energy mod..."
+      # Copy plugins
+      cp -f /minecraft/data/plugins/energyconverters-* /minecraft/data/mods
+    else
+      echo "Avoiding Energy mod!"
+    fi
+
+    touch /minecraft/data/mods_initialized
+
+  fi
+}
+
 # Init dynmap configuration
 function init_dynmap {
 
-  if [[ ${FIRST_LAUNCH} -eq 1 ]]; then
+  if [[ ! -f /minecraft/data/dynmap_initialized ]] && [[ "${WITH_DYNMAP}" == "YES" ]]; then
     echo -e "\n*************************************************"
     echo "* Specific configuration of Minecraft server..."
     echo "*************************************************"
@@ -65,6 +110,8 @@ function init_dynmap {
     # Launching minecraft server
     tmux send-keys -t minecraft "/minecraft/data/ServerStart.sh" C-m
 
+    touch /minecraft/data/dynmap_initialized
+
   fi
 }
 
@@ -74,19 +121,10 @@ if [[ ! -f /minecraft/data/ServerStart.sh ]]; then
   # Copy install
   cp -fr /minecraft/downloads/* /minecraft/data
 
-  # Move plugins
-  mv /minecraft/data/plugins/* /minecraft/data/mods
-  rm -fr /minecraft/data/plugins
-
-  # Init plugins needed
-  FIRST_LAUNCH=1
-
-else
-
-  # Init plugins needed
-  FIRT_LAUNCH=0
-
 fi
+
+# Includ mods port configuration
+init_mods
 
 # Eula License
 if [[ ! -f /minecraft/data/eula.txt ]]; then
