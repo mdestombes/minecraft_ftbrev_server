@@ -57,7 +57,7 @@ function init_mods {
       echo "Avoiding Buildcraft mod!"
     fi
 
-    if [[ "${WITH_BLOCKSCAN}" == "YES" ]]; then
+    if [[ "${WITH_DYNMAP}" == "YES" ]] && [[ "${WITH_BLOCKSCAN}" == "YES" ]]; then
       echo "Add DynMap Blockscan mod..."
       # Copy plugins
       cp -f /minecraft/data/plugins/DynmapBlockScan-* /minecraft/data/mods
@@ -106,7 +106,7 @@ function check_mods {
     fi
   fi
 
-  if [[ "${WITH_BLOCKSCAN}" == "YES" ]]; then
+  if [[ "${WITH_DYNMAP}" == "YES" ]] && [[ "${WITH_BLOCKSCAN}" == "YES" ]]; then
     if [[ `cat /minecraft/data/logs/latest.log | grep 'Unable to read the jar file DynmapBlockScan-'` == "" ]]; then
       echo "DynMap Blockscan mod launched..."
     else
