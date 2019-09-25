@@ -94,6 +94,8 @@ You should be able to active Dynmap mod, or others, by setting "YES" to linked e
 
 /!\ Dynmap mod need another open port.
 
+/!\ Dynmap Block Scan mod need Dynmap mod to process. So you can't activate only Dynmap Block Scan mod.
+
 ### Changing default port
 
 You should be able to changing default port of your server by changin linked environment variable, as:
@@ -152,8 +154,9 @@ You can bring your own existing data + configuration and mount it to the `/data`
 
 ## Changelog
 
-| Tag      | Notes                   |
-|----------|-------------------------|
-| `1.0`    | Initialization          |
-|----------|-------------------------|
-| `1.1`    | Mods are optionnal      |
+| Tag      | Notes                         |
+|----------|-------------------------------|
+| `1.0`    | Initialization                |
+|----------|-------------------------------|
+| `2.0`    | Mods are optionnal            |
+|          | Version 3.1.0 FTB Revelation  |
