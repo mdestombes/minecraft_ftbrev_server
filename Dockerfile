@@ -36,10 +36,10 @@ USER root
 
 # Downloading files
 RUN wget --no-check-certificate \
-        -O /minecraft/downloads/FTBRevelationServer_2.7.0.zip \
-        https://media.forgecdn.net/files/2658/240/FTBRevelationServer_2.7.0.zip && \
-	unzip FTBRevelationServer_2.7.0.zip && \
-	rm FTBRevelationServer_2.7.0.zip && \
+        -O /minecraft/downloads/FTBRevelationServer_3.1.0.zip \
+        https://media.forgecdn.net/files/2746/968/FTBRevelationServer_3.1.0.zip && \
+	unzip FTBRevelationServer_3.1.0.zip && \
+	rm FTBRevelationServer_3.1.0.zip && \
 	chmod u+x FTBInstall.sh ServerStart.sh
 
 # Running install
@@ -47,18 +47,26 @@ RUN /minecraft/downloads/FTBInstall.sh
 
 # Download plugins
 WORKDIR /minecraft/downloads/plugins
+
+# List from https://www.curseforge.com/minecraft/mc-mods/dynmapforge/files
 RUN wget \
-    -O /minecraft/downloads/plugins/Dynmap-3.0-beta-3-forge-1.12.2.jar \
-    https://minecraft.curseforge.com/projects/dynmapforge/files/2645936/download
+    -O /minecraft/downloads/plugins/Dynmap-3.0-beta-4-forge-1.12.2.jar \
+    https://media.forgecdn.net/files/2722/448/Dynmap-3.0-beta-4-forge-1.12.2.jar
+
+# List from https://mod-buildcraft.com/releases/BuildCraft
 RUN wget \
-    -O /minecraft/downloads/plugins/buildcraft-all-7.99.21.jar \
-    https://mod-buildcraft.com/releases/BuildCraft/7.99.21/buildcraft-all-7.99.21.jar
+    -O /minecraft/downloads/plugins/buildcraft-all-7.99.24.1.jar \
+    https://mod-buildcraft.com/releases/BuildCraft/7.99.24.1/buildcraft-all-7.99.24.1.jar
+
+# List from http://mikeprimm.com/dynmap/builds/DynmapBlockScan/
 RUN wget \
     -O /minecraft/downloads/plugins/DynmapBlockScan-3.0-beta-1-forge-1.12.2.jar \
     http://mikeprimm.com/dynmap/builds/DynmapBlockScan/DynmapBlockScan-3.0-beta-1-forge-1.12.2.jar
+
+# List from https://www.curseforge.com/minecraft/mc-mods/energy-converters/files
 RUN wget \
-    -O /minecraft/downloads/plugins/energyconverters_1.12.2-1.2.1.11.jar \
-    https://minecraft.curseforge.com/projects/energy-converters/files/2665717/download
+    -O /minecraft/downloads/plugins/energyconverters-1.12.2-1.3.2.17.jar \
+    https://media.forgecdn.net/files/2790/578/energyconverters_1.12.2-1.3.2.17.jar
 
 # Copy runner
 WORKDIR /minecraft/bin
